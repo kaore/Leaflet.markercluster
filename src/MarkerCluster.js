@@ -10,6 +10,7 @@ L.MarkerCluster = L.Marker.extend({
 		this._markers = [];
 		this._childClusters = [];
 		this._childCount = 0;
+		this._childWeighedCount = 0;
 		this._iconNeedsUpdate = true;
 
 		this._bounds = new L.LatLngBounds();
@@ -39,7 +40,7 @@ L.MarkerCluster = L.Marker.extend({
 
 	//Returns the count of how many child markers we have
 	getChildCount: function () {
-		return this._childCount;
+		return this._childWeighedCount;
 	},
 
 	//Zoom to the minimum of showing all of the child markers, or the extents of this cluster
@@ -107,11 +108,13 @@ L.MarkerCluster = L.Marker.extend({
 				new1.__parent = this;
 			}
 			this._childCount += new1._childCount;
+			this._childWeighedCount += new1._childWeighedCount;
 		} else {
 			if (!isNotificationFromChild) {
 				this._markers.push(new1);
 			}
 			this._childCount++;
+			this._childWeighedCount += typeof new1.options.count === 'undefined' ? 1 : new1.options.count;
 		}
 
 		if (this.__parent) {
