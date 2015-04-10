@@ -630,7 +630,10 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 		var childCount = cluster.getChildCount();
 
 		var c = ' marker-cluster-';
-		if (childCount < 10) {
+
+		if (childCount === 0) {
+			c += 'zero';
+		} else if (childCount < 10) {
 			c += 'small';
 		} else if (childCount < 100) {
 			c += 'medium';
