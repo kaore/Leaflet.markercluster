@@ -566,6 +566,7 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 
 		while (cluster) {
 			cluster._childCount--;
+			cluster._childWeighedCount -= typeof marker.options.count === 'undefined' ? 1 : marker.options.count;
 
 			if (cluster._zoom < 0) {
 				//Top level, do nothing
@@ -627,7 +628,7 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 
 	//Default functionality
 	_defaultIconCreateFunction: function (cluster) {
-		var childCount = cluster.getChildCount();
+		var childCount = cluster.getWeighedChildCount();
 
 		var c = ' marker-cluster-';
 

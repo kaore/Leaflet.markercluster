@@ -40,6 +40,10 @@ L.MarkerCluster = L.Marker.extend({
 
 	//Returns the count of how many child markers we have
 	getChildCount: function () {
+		return this._childCount;
+	},
+
+	getWeighedChildCount: function () {
 		return this._childWeighedCount;
 	},
 
